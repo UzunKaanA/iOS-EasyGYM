@@ -7,6 +7,7 @@
 
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 class WorkoutService {
     static let shared = WorkoutService()
@@ -26,10 +27,17 @@ class WorkoutService {
                 let name = data["name"] as? String ?? ""
                 
                 let muscle = data["muscle"] as? [String: Any]
-                let primaryMuscle = muscle?["Primary"] as? [String] ?? []
-                let secondaryMuscle = muscle?["Secondary"] as? [String] ?? []
+                let primaryMuscle = (muscle?["Primary"] as? [String])?.compactMap { MuscleType(rawValue: $0.lowercased()) } ?? []
+                let secondaryMuscle = (muscle?["Secondary"] as? [String])?.compactMap { MuscleType(rawValue: $0.lowercased()) } ?? []
+                               
+              //  let movementType = data["movement_type"] as? MovementType
                 
-                let movementType = data["movement_type"] as? String ?? ""
+                let movementTypeRaw = data["movement_type"] as? String
+                guard let movementType = MovementType(rawValue: movementTypeRaw?.lowercased() ?? "") else {
+                    print("Invalid movement type for document ID: \(id)")
+                    continue
+                }
+                
                 let description = data["description"] as? String ?? ""
                 let photoURL = data["photoURL"] as? String ?? ""
                 
@@ -61,4 +69,8 @@ class WorkoutService {
             completion(url?.absoluteString)
         }
     }
+    
+
+    
+    
 }
