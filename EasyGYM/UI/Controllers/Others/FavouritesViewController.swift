@@ -30,30 +30,30 @@ class FavouritesViewController: UIViewController {
 
     
     private func fetchFavoriteWorkouts() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("Users").document(userID).collection("favorites").getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching favorites: \(error.localizedDescription)")
-                return
-            }
-            
-            print("Fetched favorites snapshot: \(snapshot?.documents ?? [])")
-            
-            self.favoriteWorkouts = snapshot?.documents.compactMap { document in
-                let data = document.data()
-                return Workout(
-                    id: document.documentID,
-                    name: data["name"] as? String ?? "",
-                    primaryMuscle: (data["primaryMuscle"] as? String ?? "").components(separatedBy: ", "),
-                    secondaryMuscle: (data["secondaryMuscle"] as? String ?? "").components(separatedBy: ", "),
-                    movementType: data["movementType"] as? String ?? "",
-                    description: data["description"] as? String ?? "",
-                    photoURL: data["photoURL"] as? String ?? ""
-                )
-            } ?? []
-            self.favoriteTableView.reloadData()
-        }
+//        guard let userID = Auth.auth().currentUser?.uid else { return }
+//        let db = Firestore.firestore()
+//        db.collection("Users").document(userID).collection("favorites").getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error fetching favorites: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            print("Fetched favorites snapshot: \(snapshot?.documents ?? [])")
+//            
+//            self.favoriteWorkouts = snapshot?.documents.compactMap { document in
+//                let data = document.data()
+//                return Workout(
+//                    id: document.documentID,
+//                    name: data["name"] as? String ?? "",
+//                    primaryMuscle: (data["primaryMuscle"] as? String ?? "").components(separatedBy: ", "),
+//                    secondaryMuscle: (data["secondaryMuscle"] as? String ?? "").components(separatedBy: ", "),
+//                    movementType: data["movementType"] as? String ?? "",
+//                    description: data["description"] as? String ?? "",
+//                    photoURL: data["photoURL"] as? String ?? ""
+//                )
+//            } ?? []
+//            self.favoriteTableView.reloadData()
+//        }
     }
 
 }
@@ -71,7 +71,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
         let workout = favoriteWorkouts[indexPath.row]
        // cell.workout = workout
         cell.lblFavName.text = workout.name
-        cell.lblFavPrimary.text = workout.primaryMuscle.joined(separator: ", ")
+        cell.lblFavPrimary.text = workout.primaryMuscle.map { $0.rawValue }.joined(separator: ", ")
         
         // Fetch image from Firebase Storage
         WorkoutService.shared.fetchDownloadURL(for: workout.photoURL) { url in
