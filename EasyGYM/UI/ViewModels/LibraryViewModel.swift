@@ -48,14 +48,17 @@ class LibraryViewModel {
         }
     }
     
-    func getWorkoutsCount() -> Int {
-        return workouts.count
+    var workoutsCount: Int {
+        workouts.count
+    }
+    
+    var filteredWorkoutsCount: Int {
+        filteredWorkouts.count
     }
     
     func getWorkout(at index: Int) -> Workout {
         return workouts[index]
     }
-    
     
     func fetchFavoriteWorkouts(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -75,42 +78,41 @@ class LibraryViewModel {
         return favoriteWorkoutIDs.contains(workoutID)
     }
     
-    
     func didTapFavorite(on workout: Workout, completion: @escaping () -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        let workoutRef = db.collection("users").document(userID).collection("favorites").document(workout.id)
-        
-        if favoriteWorkoutIDs.contains(workout.id) {
-            // Remove from favorites
-            workoutRef.delete { error in
-                if let error = error {
-                    print("Error removing favorite: \(error.localizedDescription)")
-                    return
-                }
-                print("Removed favorite: \(workout.name)")
-                self.favoriteWorkoutIDs.remove(workout.id)
-                completion()
-            }
-        } else {
-            // Add to favorites
-            let workoutData: [String: Any] = [
-                "name": workout.name,
-                "primaryMuscle": workout.primaryMuscle.map { $0.rawValue },
-                "secondaryMuscle": workout.secondaryMuscle.map { $0.rawValue },
-                "movementType": workout.movementType.rawValue,
-                "description": workout.description,
-                "photoURL": workout.photoURL
-            ]
-            workoutRef.setData(workoutData) { error in
-                if let error = error {
-                    print("Error adding favorite: \(error.localizedDescription)")
-                    return
-                }
-                print("Added to favorites: \(workout.name)")
-                self.favoriteWorkoutIDs.insert(workout.id)
-                completion()
-            }
-        }
+//        guard let userID = Auth.auth().currentUser?.uid else { return }
+//        let db = Firestore.firestore()
+//        let workoutRef = db.collection("users").document(userID).collection("favorites").document(workout.id)
+//        
+//        if favoriteWorkoutIDs.contains(workout.id) {
+//            // Remove from favorites
+//            workoutRef.delete { error in
+//                if let error = error {
+//                    print("Error removing favorite: \(error.localizedDescription)")
+//                    return
+//                }
+//                print("Removed favorite: \(workout.name)")
+//                self.favoriteWorkoutIDs.remove(workout.id)
+//                completion()
+//            }
+//        } else {
+//            // Add to favorites
+//            let workoutData: [String: Any] = [
+//                "name": workout.name,
+//                "primaryMuscle": workout.primaryMuscle.map { $0.rawValue },
+//                "secondaryMuscle": workout.secondaryMuscle.map { $0.rawValue },
+//                "movementType": workout.movementType.rawValue,
+//                "description": workout.description,
+//                "photoURL": workout.photoURL
+//            ]
+//            workoutRef.setData(workoutData) { error in
+//                if let error = error {
+//                    print("Error adding favorite: \(error.localizedDescription)")
+//                    return
+//                }
+//                print("Added to favorites: \(workout.name)")
+//                self.favoriteWorkoutIDs.insert(workout.id)
+//                completion()
+//            }
+//        }
     }
 }

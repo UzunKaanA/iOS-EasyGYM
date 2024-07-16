@@ -13,9 +13,9 @@ enum MuscleType: String, Codable {
     case triceps
     case chest
     case lats
-    case forearmFlexors
+    case forearmFlexors = "Forearm Flexors"
     case glutes
-    case lowerBack
+    case lowerBack = "Lower Back"
     case quads
     case hamstrings
 }
@@ -26,13 +26,31 @@ enum MovementType: String, Codable {
     case leg
 }
 
-struct Workout {
+struct Workout: Codable {
     var id: String
     var name: String
-    var primaryMuscle: [MuscleType]
-    var secondaryMuscle: [MuscleType]
     var movementType: MovementType
     var description: String
     var photoURL: String
+    var muscle: Muscle
+    
+    enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case muscle
+            case movementType = "movement_type"
+            case description
+            case photoURL
+        }
+}
+
+struct Muscle: Codable {
+    var primary: [MuscleType]
+    var secondary: [MuscleType]
+    
+    enum CodingKeys: String, CodingKey {
+        case primary = "Primary"
+        case secondary = "Secondary"
+    }
 }
 

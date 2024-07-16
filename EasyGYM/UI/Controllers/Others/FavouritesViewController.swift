@@ -71,7 +71,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
         let workout = favoriteWorkouts[indexPath.row]
        // cell.workout = workout
         cell.lblFavName.text = workout.name
-        cell.lblFavPrimary.text = workout.primaryMuscle.map { $0.rawValue }.joined(separator: ", ")
+    //    cell.lblFavPrimary.text = workout.primaryMuscle.map { $0.rawValue }.joined(separator: ", ")
         
         // Fetch image from Firebase Storage
         WorkoutService.shared.fetchDownloadURL(for: workout.photoURL) { url in

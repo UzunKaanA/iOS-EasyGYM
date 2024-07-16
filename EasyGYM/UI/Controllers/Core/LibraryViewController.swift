@@ -14,7 +14,7 @@ import FirebaseFirestore
 
 class LibraryViewController: UIViewController {
     
-    var viewModel: LibraryViewModel!
+    var viewModel = LibraryViewModel()
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var workoutTableView: UITableView!
@@ -27,9 +27,6 @@ class LibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if viewModel == nil {
-            viewModel = LibraryViewModel()
-        }
         // Set delegates for table view and search bar
         workoutTableView.delegate = self
         workoutTableView.dataSource = self
@@ -93,11 +90,11 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource, Wor
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("\(viewModel.isFiltering) -> tableView")
         if viewModel.isFiltering {
-            return viewModel.filteredWorkouts.count
+            return viewModel.filteredWorkoutsCount
         } else if isSearching {
             return filteredSearchWorkouts.count
         } else {
-            return viewModel.workouts.count
+            return viewModel.workoutsCount
         }
     }
 
@@ -116,7 +113,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource, Wor
         
         // Populate cell with workout data
         cell.lblWorkoutName.text = workout.name
-        cell.lblPrimaryMuscle.text = workout.primaryMuscle.map { $0.rawValue }.joined(separator: ", ").capitalized
+        cell.lblPrimaryMuscle.text = workout.muscle.primary.map { $0.rawValue }.joined(separator: ", ").capitalized
         cell.cellProtocol = self
         cell.indexPath = indexPath
         cell.workout = workout

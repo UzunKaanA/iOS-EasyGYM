@@ -14,47 +14,45 @@ class WorkoutService {
     private let db = Firestore.firestore()
     var favoriteWorkoutIDs: Set<String> = []
     
-    func fetchWorkouts(completion: @escaping ([Workout]?, Error?) -> Void) {
-        db.collection("workouts").getDocuments { (snapshot, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
+    //generic
+    func fetchCollection<T: Codable>(collectionName: String, completion: @escaping (Result<[T], Error>) -> Void) {
+        let db = Firestore.firestore()
             
-            var workouts = [Workout]()
-            for document in snapshot?.documents ?? [] {
-                let data = document.data()
-                let id = document.documentID
-                let name = data["name"] as? String ?? ""
-                
-                let muscle = data["muscle"] as? [String: Any]
-                let primaryMuscle = (muscle?["Primary"] as? [String])?.compactMap { MuscleType(rawValue: $0.lowercased()) } ?? []
-                let secondaryMuscle = (muscle?["Secondary"] as? [String])?.compactMap { MuscleType(rawValue: $0.lowercased()) } ?? []
-                               
-              //  let movementType = data["movement_type"] as? MovementType
-                
-                let movementTypeRaw = data["movement_type"] as? String
-                guard let movementType = MovementType(rawValue: movementTypeRaw?.lowercased() ?? "") else {
-                    print("Invalid movement type for document ID: \(id)")
-                    continue
+            db.collection(collectionName).getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    return
                 }
                 
-                let description = data["description"] as? String ?? ""
-                let photoURL = data["photoURL"] as? String ?? ""
+                guard let documents = querySnapshot?.documents else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found"])))
+                    return
+                }
                 
-                let workout = Workout(
-                    id: id,
-                    name: name,
-                    primaryMuscle: primaryMuscle,
-                    secondaryMuscle: secondaryMuscle,
-                    movementType: movementType,
-                    description: description,
-                    photoURL: photoURL
-                )
-                
-                workouts.append(workout)
+                do {
+                    var objects: [T] = []
+                    for document in documents {
+                        let data = document.data()
+                        print("document data : \(data)")
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        let decodedObject = try Firestore.Decoder().decode(T.self, from: data)
+                        objects.append(decodedObject)
+                    }
+                    completion(.success(objects))
+                } catch let error {
+                    completion(.failure(error))
+                }
             }
-            completion(workouts, nil)
+    }
+    
+    func fetchWorkouts(completion: @escaping ([Workout]?, Error?) -> Void) {
+        fetchCollection(collectionName: "workouts") { (result: Result<[Workout], Error>) in
+            switch result {
+            case .success(let workouts):
+                completion(workouts, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
         }
     }
     
