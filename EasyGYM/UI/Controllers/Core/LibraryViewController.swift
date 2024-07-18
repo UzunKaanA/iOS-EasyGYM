@@ -36,10 +36,6 @@ class LibraryViewController: UIViewController {
             print("Data fetched, reloading table view")
             self.workoutTableView.reloadData()
         }
-        viewModel.fetchFavoriteWorkouts(){
-            self.workoutTableView.reloadData()
-        }
-
     }
     
     func reloadTableData(){

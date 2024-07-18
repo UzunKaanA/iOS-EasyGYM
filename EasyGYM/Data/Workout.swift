@@ -9,21 +9,26 @@ import FirebaseFirestore
 import FirebaseStorage
 
 enum MuscleType: String, Codable {
-    case biceps
-    case triceps
-    case chest
-    case lats
+    case biceps = "Biceps"
+    case triceps = "Triceps"
+    case chest = "Chest"
+    case lats = "Lats"
     case forearmFlexors = "Forearm Flexors"
-    case glutes
+    case glutes = "Glutes"
     case lowerBack = "Lower Back"
-    case quads
-    case hamstrings
+    case quads = "Quads"
+    case hamstrings = "Hamstrings"
+    case adductors = "Adductors"
+    case trapezius = "Trapezius"
+    case rearDeltoids = "Rear Deltoids"
+    case rotatorCuffs = "Rotator Cuff"
+    case frontDeltoid = "Front Deltoid"
 }
 
 enum MovementType: String, Codable {
-    case push
-    case pull
-    case leg
+    case push = "Push"
+    case pull = "Pull"
+    case leg = "Leg"
 }
 
 struct Workout: Codable {
@@ -46,7 +51,7 @@ struct Workout: Codable {
 
 struct Muscle: Codable {
     var primary: [MuscleType]
-    var secondary: [MuscleType]
+    var secondary: [MuscleType]?
     
     enum CodingKeys: String, CodingKey {
         case primary = "Primary"

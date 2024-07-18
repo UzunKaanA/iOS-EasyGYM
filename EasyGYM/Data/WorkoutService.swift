@@ -17,32 +17,42 @@ class WorkoutService {
     //generic
     func fetchCollection<T: Codable>(collectionName: String, completion: @escaping (Result<[T], Error>) -> Void) {
         let db = Firestore.firestore()
+        
+        db.collection(collectionName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             
-            db.collection(collectionName).getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let documents = querySnapshot?.documents else {
-                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found"])))
-                    return
-                }
-                
-                do {
-                    var objects: [T] = []
-                    for document in documents {
-                        let data = document.data()
-                        print("document data : \(data)")
+            guard let documents = querySnapshot?.documents else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No documents found"])))
+                return
+            }
+            
+            do {
+                var objects: [T] = []
+                for document in documents {
+                    var data = document.data()
+                    // Add more detailed logging to inspect data before decoding
+                    data["id"] = document.documentID
+                    do {
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        let jsonString = String(data: jsonData, encoding: .utf8) ?? "nil"
+                        print("json string : \(jsonString)")
+                        
                         let decodedObject = try Firestore.Decoder().decode(T.self, from: data)
                         objects.append(decodedObject)
+                    } catch {
+                        print("Failed to decode document with data: \(data)")
+                        print("Error: \(error)")
+                        throw error
                     }
-                    completion(.success(objects))
-                } catch let error {
-                    completion(.failure(error))
                 }
+                completion(.success(objects))
+            } catch let error {
+                completion(.failure(error))
             }
+        }
     }
     
     func fetchWorkouts(completion: @escaping ([Workout]?, Error?) -> Void) {

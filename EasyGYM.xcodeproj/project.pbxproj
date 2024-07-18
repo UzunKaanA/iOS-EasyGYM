@@ -126,8 +126,8 @@
 		92268ACE2C27052100CBCDF8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				92268AD22C2714E000CBCDF8 /* Workout.swift */,
 				92268AD42C27159C00CBCDF8 /* WorkoutService.swift */,
+				92268AD22C2714E000CBCDF8 /* Workout.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
