@@ -7,10 +7,6 @@
 
 import UIKit
 import SDWebImage
-import FirebaseAuth
-import Firebase
-import FirebaseStorage
-import FirebaseFirestore
 
 class LibraryViewController: UIViewController {
     

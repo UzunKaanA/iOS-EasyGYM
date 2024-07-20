@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseFirestore
 
 class LibraryViewModel {
     
@@ -58,20 +56,6 @@ class LibraryViewModel {
     
     func getWorkout(at index: Int) -> Workout {
         return workouts[index]
-    }
-    
-    func fetchFavoriteWorkouts(completion: @escaping () -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("users").document(userID).collection("favorites").getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching favorites: \(error.localizedDescription)")
-                return
-            }
-            for document in snapshot?.documents ?? [] {
-                self.favoriteWorkoutIDs.insert(document.documentID)
-            }
-        }
     }
     
     func isFavorite(workoutID: String) -> Bool {
