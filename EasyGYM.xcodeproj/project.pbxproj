@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		920190152C5012CB00EBFA34 /* MuscleTypesFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920190142C5012CB00EBFA34 /* MuscleTypesFilterTableViewCell.swift */; };
+		920190172C50131E00EBFA34 /* MovementTypesFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920190162C50131E00EBFA34 /* MovementTypesFilterTableViewCell.swift */; };
 		92054CAB2C275F7E0039CF89 /* FavWorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92054CAA2C275F7E0039CF89 /* FavWorkoutTableViewCell.swift */; };
 		92054CB02C2760650039CF89 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92054CAF2C2760650039CF89 /* FavouritesViewController.swift */; };
 		92268AD12C27138300CBCDF8 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92268AD02C27138300CBCDF8 /* WorkoutTableViewCell.swift */; };
@@ -19,6 +21,7 @@
 		92859B5D2C2469A1007A3D09 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92859B5C2C2469A1007A3D09 /* LibraryViewController.swift */; };
 		92E7F2262C25C2080085B2ED /* CalenderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E7F2252C25C2080085B2ED /* CalenderCollectionViewCell.swift */; };
 		92E7F2282C25CB550085B2ED /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 92E7F2272C25CB550085B2ED /* Kanit-Regular.ttf */; };
+		92EB8D622C4EC8F4000CD782 /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EB8D612C4EC8F4000CD782 /* PopOverViewController.swift */; };
 		92EC75B92C235A2200C7A020 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92EC75B82C235A2200C7A020 /* GoogleService-Info.plist */; };
 		92EC75BC2C23609500C7A020 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 92EC75BB2C23609500C7A020 /* FirebaseFirestore */; };
 		92EC75BE2C23632D00C7A020 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC75BD2C23632D00C7A020 /* HomeViewController.swift */; };
@@ -39,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		920190142C5012CB00EBFA34 /* MuscleTypesFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleTypesFilterTableViewCell.swift; sourceTree = "<group>"; };
+		920190162C50131E00EBFA34 /* MovementTypesFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementTypesFilterTableViewCell.swift; sourceTree = "<group>"; };
 		92054CAA2C275F7E0039CF89 /* FavWorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavWorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		92054CAF2C2760650039CF89 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		92268AD02C27138300CBCDF8 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
@@ -50,6 +55,7 @@
 		92859B5C2C2469A1007A3D09 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		92E7F2252C25C2080085B2ED /* CalenderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderCollectionViewCell.swift; sourceTree = "<group>"; };
 		92E7F2272C25CB550085B2ED /* Kanit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Regular.ttf"; sourceTree = "<group>"; };
+		92EB8D612C4EC8F4000CD782 /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
 		92EC75B82C235A2200C7A020 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92EC75BD2C23632D00C7A020 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		92F535F32C232EF800BC0754 /* EasyGYM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyGYM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				92054CAF2C2760650039CF89 /* FavouritesViewController.swift */,
+				92EB8D612C4EC8F4000CD782 /* PopOverViewController.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -137,6 +144,8 @@
 			children = (
 				92268AD02C27138300CBCDF8 /* WorkoutTableViewCell.swift */,
 				92054CAA2C275F7E0039CF89 /* FavWorkoutTableViewCell.swift */,
+				920190142C5012CB00EBFA34 /* MuscleTypesFilterTableViewCell.swift */,
+				920190162C50131E00EBFA34 /* MovementTypesFilterTableViewCell.swift */,
 			);
 			path = TableViews;
 			sourceTree = "<group>";
@@ -323,6 +332,7 @@
 				92268AD52C27159C00CBCDF8 /* WorkoutService.swift in Sources */,
 				92E7F2262C25C2080085B2ED /* CalenderCollectionViewCell.swift in Sources */,
 				92268AD72C2719F300CBCDF8 /* LibraryViewModel.swift in Sources */,
+				920190172C50131E00EBFA34 /* MovementTypesFilterTableViewCell.swift in Sources */,
 				92F535FB2C232EF800BC0754 /* FirstViewController.swift in Sources */,
 				92859B5D2C2469A1007A3D09 /* LibraryViewController.swift in Sources */,
 				92F535F72C232EF800BC0754 /* AppDelegate.swift in Sources */,
@@ -333,7 +343,9 @@
 				92268AD12C27138300CBCDF8 /* WorkoutTableViewCell.swift in Sources */,
 				92268AD32C2714E000CBCDF8 /* Workout.swift in Sources */,
 				92859B592C245959007A3D09 /* ProfileViewController.swift in Sources */,
+				920190152C5012CB00EBFA34 /* MuscleTypesFilterTableViewCell.swift in Sources */,
 				92F535F92C232EF800BC0754 /* SceneDelegate.swift in Sources */,
+				92EB8D622C4EC8F4000CD782 /* PopOverViewController.swift in Sources */,
 				92859B5B2C2467D9007A3D09 /* TabBarViewController.swift in Sources */,
 				92054CAB2C275F7E0039CF89 /* FavWorkoutTableViewCell.swift in Sources */,
 				92F536272C2342C300BC0754 /* Constants.swift in Sources */,

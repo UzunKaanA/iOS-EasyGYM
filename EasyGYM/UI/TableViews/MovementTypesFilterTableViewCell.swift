@@ -1,0 +1,29 @@
+//
+//  MovementTypesFilterTableViewCell.swift
+//  EasyGYM
+//
+//  Created by Kaan Uzun on 23.07.2024.
+//
+
+import UIKit
+
+class MovementTypesFilterTableViewCell: UITableViewCell {
+
+    @IBOutlet weak var lblMovementName: UILabel!
+    @IBOutlet weak var btnMovementCheckBox: UIButton!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+    @IBAction func actionMovementCheckBox(_ sender: Any) {
+        
+    }
+}
