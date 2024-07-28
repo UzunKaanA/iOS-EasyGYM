@@ -44,7 +44,7 @@ class LibraryViewController: UIViewController {
         guard let button = sender as? UIButton else { 
             print("button")
             return }
-        guard let ourPopOver = preparePopUp(sourceRect: button.frame, VCIdentifier: "popOver") else {
+        guard let ourPopOver = preparePopUp(sourceRect: button.frame) else {
             print("popover")
             return }
         self.present(ourPopOver, animated: true, completion: nil)
@@ -156,16 +156,16 @@ extension LibraryViewController: UIPopoverPresentationControllerDelegate {
     public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
     public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool { return true }
         
-   func preparePopUp(sourceRect : CGRect, VCIdentifier: String) -> UIViewController? {
-        let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier:VCIdentifier)
-        popoverContentController?.modalPresentationStyle = .popover
-        if let popoverPresentationController = popoverContentController?.popoverPresentationController {
-            popoverPresentationController.permittedArrowDirections = .init([.up,.down])
-            popoverPresentationController.sourceView = self.view
-            popoverPresentationController.sourceRect = sourceRect
-            popoverPresentationController.delegate = self
-            return popoverContentController
-        }
-    return nil
+   func preparePopUp(sourceRect : CGRect) -> UIViewController? {
+       let popoverContentController = PopOverViewController()
+       popoverContentController.modalPresentationStyle = .popover
+       if let popoverPresentationController = popoverContentController.popoverPresentationController {
+           popoverPresentationController.permittedArrowDirections = [.up, .down]
+           popoverPresentationController.sourceView = self.view
+           popoverPresentationController.sourceRect = sourceRect
+           popoverPresentationController.delegate = self
+           return popoverContentController
+       }
+       return nil
     }
 }
