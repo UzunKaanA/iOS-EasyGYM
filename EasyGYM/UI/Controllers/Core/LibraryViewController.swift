@@ -27,7 +27,7 @@ class LibraryViewController: UIViewController {
         workoutTableView.delegate = self
         workoutTableView.dataSource = self
         searchBar.delegate = self
-
+        
         viewModel.fetchWorkouts {
             print("Data fetched, reloading table view")
             self.workoutTableView.reloadData()
@@ -41,32 +41,13 @@ class LibraryViewController: UIViewController {
     }
     
     @IBAction func filterAction(_ sender: Any) {
-        let alertController = UIAlertController(title: "Filter Options", message:"Movement Type", preferredStyle: .actionSheet)
-
-        let filterByPush = UIAlertAction(title: "Push", style: .default) { _ in
-            self.viewModel.filterWorkouts(by: .push)
-            self.reloadTableData()
-        }
-        let filterByPull = UIAlertAction(title: "Pull", style: .default) { _ in
-            self.viewModel.filterWorkouts(by: .pull)
-            self.reloadTableData()
-        }
-        let filterByLeg = UIAlertAction(title: "Leg", style: .default) {_ in
-            self.viewModel.filterWorkouts(by: .leg)
-            self.reloadTableData()
-        }
-        let clearFilter = UIAlertAction(title: "Clear Filter", style: .default) { _ in
-            self.viewModel.clearFilter()
-            self.reloadTableData()
-        }
-        
-        alertController.addAction(filterByPush)
-        alertController.addAction(filterByPull)
-        alertController.addAction(filterByLeg)
-        alertController.addAction(clearFilter)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
+        guard let button = sender as? UIButton else { 
+            print("button")
+            return }
+        guard let ourPopOver = preparePopUp(sourceRect: button.frame) else {
+            print("popover")
+            return }
+        self.present(ourPopOver, animated: true, completion: nil)
     }
     
     enum filterCriteria {
@@ -78,7 +59,7 @@ class LibraryViewController: UIViewController {
 
 // MARK: - Table View Delegate and Data Source Methods
 extension LibraryViewController: UITableViewDelegate, UITableViewDataSource, WorkoutCellDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("\(viewModel.isFiltering) -> tableView")
         if viewModel.isFiltering {
@@ -89,7 +70,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource, Wor
             return viewModel.workoutsCount
         }
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutCell", for: indexPath) as! WorkoutTableViewCell
@@ -120,8 +101,8 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource, Wor
         
         return cell
     }
-
-
+    
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Handle selection if needed
@@ -165,5 +146,26 @@ extension LibraryViewController: UISearchBarDelegate {
         searchBar.text = ""
         isSearching = false
         workoutTableView.reloadData()
+    }
+}
+
+
+extension LibraryViewController: UIPopoverPresentationControllerDelegate {
+  
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle { return .none }
+    public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {}
+    public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool { return true }
+        
+   func preparePopUp(sourceRect : CGRect) -> UIViewController? {
+       let popoverContentController = PopOverViewController()
+       popoverContentController.modalPresentationStyle = .popover
+       if let popoverPresentationController = popoverContentController.popoverPresentationController {
+           popoverPresentationController.permittedArrowDirections = [.up, .down]
+           popoverPresentationController.sourceView = self.view
+           popoverPresentationController.sourceRect = sourceRect
+           popoverPresentationController.delegate = self
+           return popoverContentController
+       }
+       return nil
     }
 }

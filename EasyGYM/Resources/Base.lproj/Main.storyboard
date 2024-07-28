@@ -496,7 +496,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="FpV-r3-sc8">
-                                <rect key="frame" x="0.0" y="92" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="92" width="344" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="TDG-sC-YVY" id="05g-92-wIi"/>
@@ -578,6 +578,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAc-ye-52L">
+                                <rect key="frame" x="353" y="103" width="50" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="filterAction:" destination="TDG-sC-YVY" eventType="touchUpInside" id="bt6-bw-4c1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="350-Qb-Pt3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -586,23 +594,18 @@
                             <constraint firstItem="350-Qb-Pt3" firstAttribute="trailing" secondItem="Q1A-ht-FaT" secondAttribute="trailing" id="8df-Ze-FXt"/>
                             <constraint firstItem="FpV-r3-sc8" firstAttribute="top" secondItem="350-Qb-Pt3" secondAttribute="top" id="9Ne-y9-KXI"/>
                             <constraint firstItem="Q1A-ht-FaT" firstAttribute="leading" secondItem="350-Qb-Pt3" secondAttribute="leading" id="B8g-nk-D55"/>
+                            <constraint firstItem="350-Qb-Pt3" firstAttribute="trailing" secondItem="rAc-ye-52L" secondAttribute="trailing" constant="11" id="RJu-3Y-ZqG"/>
+                            <constraint firstItem="rAc-ye-52L" firstAttribute="top" secondItem="350-Qb-Pt3" secondAttribute="top" constant="11" id="Up7-Lu-CKU"/>
                             <constraint firstItem="Q1A-ht-FaT" firstAttribute="top" secondItem="FpV-r3-sc8" secondAttribute="bottom" id="YuB-Td-JWS"/>
+                            <constraint firstItem="Q1A-ht-FaT" firstAttribute="top" secondItem="rAc-ye-52L" secondAttribute="bottom" constant="11" id="ckr-uC-6Sl"/>
                             <constraint firstItem="350-Qb-Pt3" firstAttribute="bottom" secondItem="Q1A-ht-FaT" secondAttribute="bottom" id="otG-Uw-HmI"/>
-                            <constraint firstItem="FpV-r3-sc8" firstAttribute="trailing" secondItem="350-Qb-Pt3" secondAttribute="trailing" id="qgQ-Lu-9sz"/>
+                            <constraint firstItem="FpV-r3-sc8" firstAttribute="trailing" secondItem="350-Qb-Pt3" secondAttribute="trailing" constant="-70" id="qgQ-Lu-9sz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mKu-ao-CyK">
-                        <rightBarButtonItems>
-                            <barButtonItem image="plus.app.fill" catalog="system" id="2bK-nv-St8">
-                                <color key="tintColor" systemColor="systemIndigoColor"/>
-                            </barButtonItem>
-                            <barButtonItem image="line.3.horizontal.decrease.circle.fill" catalog="system" id="lf4-rG-bqc">
-                                <color key="tintColor" systemColor="systemIndigoColor"/>
-                                <connections>
-                                    <action selector="filterAction:" destination="TDG-sC-YVY" id="iJt-YS-l5Z"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" image="plus.app.fill" catalog="system" id="2bK-nv-St8">
+                            <color key="tintColor" systemColor="systemIndigoColor"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="FpV-r3-sc8" id="l6D-xq-LfP"/>
